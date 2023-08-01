@@ -1,0 +1,18 @@
+version: '3'
+services:
+  ceres-broker:
+    image: eclipse-mosquitto
+    container_name: ceres-broker
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    ports:
+      - 1883:1883
+      - 9001:9001
+    networks:
+      - ceres-broker
+networks:
+  ceres-broker:
+    name: ceres-broker
+    driver: bridge

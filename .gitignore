@@ -34,3 +34,8 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Mosquitto
+mosquitto/data
+mosquitto/log
+mosquitto/config/password.txt

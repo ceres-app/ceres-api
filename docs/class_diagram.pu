@@ -1,0 +1,5 @@
+@startuml Ceres API
+skinparam classAttributeIconSize 0
+
+
+@enduml
