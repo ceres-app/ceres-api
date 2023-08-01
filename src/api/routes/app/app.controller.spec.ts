@@ -1,6 +1,6 @@
+import { AppService } from '@/api/services/app.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -14,9 +14,10 @@ describe('AppController', () => {
     appController = app.get<AppController>(AppController);
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+  it('should return API infos', () => {
+    expect(appController.getInfo()).toEqual({
+      name: 'Ceres API v0.1',
+      description: 'An API to manage a water pump with Arduino.',
     });
   });
 });
