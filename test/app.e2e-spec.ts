@@ -1,7 +1,7 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { AppModule } from '@/api/routes/app/app.module';
 import { INestApplication } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
-import { AppModule } from './../src/app.module';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -16,9 +16,9 @@ describe('AppController (e2e)', () => {
   });
 
   it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+    return request(app.getHttpServer()).get('/').expect(200).expect({
+      name: 'Ceres API v0.1',
+      description: 'An API to manage a water pump with Arduino.',
+    });
   });
 });
