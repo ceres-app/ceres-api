@@ -1,5 +1,48 @@
 @startuml Ceres API
 skinparam classAttributeIconSize 0
 
+class Plant{
+    id: string
+    name: string
+    waterPerSecond: number
+    garden: Garden
+}
+
+Plant -> Garden
+
+class Garden{
+    id: string
+    name: string
+    user: User
+    device: Device
+}
+
+Garden --> User
+Garden --> Device
+
+class User{
+    id: string
+    username: string
+    password: string
+}
+
+class Schedule{
+    user: User
+    plant: Plant
+    time: Date
+}
+
+Schedule -> User
+Schedule --> Plant
+
+class Device{
+    id: string
+    serialID: string
+    name: string
+    isWorking: boolean
+    user: User
+}
+
+Device --> User
 
 @enduml
