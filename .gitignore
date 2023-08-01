@@ -39,3 +39,6 @@ lerna-debug.log*
 mosquitto/data
 mosquitto/log
 mosquitto/config/password.txt
+
+# Env
+.env
