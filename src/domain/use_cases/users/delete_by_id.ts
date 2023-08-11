@@ -1,4 +1,5 @@
 import { User } from '@/domain/entities/user';
+import { HttpError } from '@/domain/exceptions/http_error';
 import { IUserService } from '@/domain/ports/iuser_service';
 import { UseCase } from '../iuse_case';
 
@@ -13,10 +14,10 @@ export class DeleteById implements UseCase<Input, Output> {
 
   async execute(input: Input): Promise<User> {
     const { id } = input;
-    if (id === '') throw new Error('Informe um ID de usuário válido.');
+    if (id === '') throw new HttpError('Informe um ID de usuário válido.');
     const deletedUser = await this.userService.deleteById(id);
     if (!deletedUser)
-      throw new Error(`Não foi possível deletar usuário de ID ${id}.`);
+      throw new HttpError(`Não foi possível deletar usuário de ID ${id}.`);
     return deletedUser;
   }
 }

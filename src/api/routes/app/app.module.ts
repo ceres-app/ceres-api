@@ -1,12 +1,19 @@
+import { HttpExceptionInterceptor } from '@/api/interceptors/http_exception_interceptor';
 import { AppController } from '@/api/routes/app/app.controller';
 import { AppService } from '@/api/services/app.service';
-import { DATABASE_URL } from '@/constants';
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule } from '@nestjs/config';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Module({
-  imports: [MongooseModule.forRoot(DATABASE_URL)],
+  imports: [ConfigModule.forRoot()],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: HttpExceptionInterceptor,
+    },
+  ],
 })
 export class AppModule {}

@@ -1,4 +1,5 @@
 import { User, UserUpdateRequest } from '@/domain/entities/user';
+import { HttpError } from '@/domain/exceptions/http_error';
 import { IUserService } from '@/domain/ports/iuser_service';
 import { UseCase } from '../iuse_case';
 
@@ -15,7 +16,7 @@ export class Update implements UseCase<Input, Output> {
   async execute(input: Input): Promise<User> {
     const { id, newUser } = input;
     const updatedUser = await this.userService.update(id, newUser);
-    if (!updatedUser) throw new Error(`Usuário ${id} não foi atualizado.`);
+    if (!updatedUser) throw new HttpError(`Usuário ${id} não foi atualizado.`);
     return updatedUser;
   }
 }

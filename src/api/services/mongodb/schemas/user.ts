@@ -1,13 +1,18 @@
 import { User } from '@/domain/entities/user';
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose from 'mongoose';
 
-@Schema()
-export class UserModel implements User {
-  @Prop({ required: true })
-  username: string;
+const UserSchema = new mongoose.Schema<User>(
+  {
+    username: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: false },
+);
 
-  @Prop({ required: true })
-  password: string;
-}
-
-export const UserSchema = SchemaFactory.createForClass(UserModel);
+export const UserModel = mongoose.model('users', UserSchema);

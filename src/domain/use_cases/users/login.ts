@@ -1,4 +1,5 @@
 import { User } from '@/domain/entities/user';
+import { HttpError } from '@/domain/exceptions/http_error';
 import { IUserService } from '@/domain/ports/iuser_service';
 import { UseCase } from '../iuse_case';
 
@@ -18,7 +19,7 @@ export class Login implements UseCase<Input, Output> {
       username,
       password,
     );
-    if (!foundUser) throw new Error(`Usuário ou senha incorretos.`);
+    if (!foundUser) throw new HttpError(`Usuário ou senha incorretos.`);
     return foundUser;
   }
 }
