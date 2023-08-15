@@ -1,3 +1,4 @@
+import { CommandData } from '@/domain/entities/device';
 import { HttpError } from '@/domain/exceptions/http_error';
 import { IBrokerService } from '@/domain/ports/ibroker_service';
 import { IDeviceService } from '@/domain/ports/idevice_service';
@@ -23,10 +24,11 @@ export class TurnOff implements UseCase<Input, Output> {
       throw new HttpError(`Dispositivo de ID '${id}' não existe.`);
 
     // Send 'turn off' command
-    const commandConfirmation = await this.brokerService.sendMessage<string>(
-      `water:${foundDevice.serialID}`,
-      'turnoff',
-    );
+    const commandConfirmation =
+      await this.brokerService.sendMessage<CommandData>(`/water/send/command`, {
+        command: 'turnoff',
+        id: foundDevice.serialID,
+      });
 
     if (!commandConfirmation)
       throw new HttpError(

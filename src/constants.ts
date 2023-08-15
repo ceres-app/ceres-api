@@ -1,5 +1,6 @@
 const PORT = parseInt(process.env.PORT || '3000');
-const MQQT_BROKER_URL = process.env.MQQT_BROKER_URL;
+const MQTT_BROKER_URL = process.env.MQTT_BROKER_URL;
 const DATABASE_URL = process.env.DATABASE_URL;
+const BROKER_URL = process.env.BROKER_URL;
 
-export { DATABASE_URL, MQQT_BROKER_URL, PORT };
+export { BROKER_URL, DATABASE_URL, MQTT_BROKER_URL, PORT };
