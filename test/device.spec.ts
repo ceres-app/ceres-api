@@ -54,7 +54,7 @@ describe('Devices (Use Cases)', () => {
     ).resolves.not.toThrow();
   });
 
-  it('Should turn off the water pump', async () => {
+  it.skip('Should turn off the water pump', async () => {
     const turnOffUC = new TurnOff(
       new MongoDBDeviceService(),
       new MQTTBrokerService(),

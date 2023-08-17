@@ -1,5 +1,5 @@
-import { DATABASE_URL } from '@/constants';
 import { User, UserRequest, UserUpdateRequest } from '@/domain/entities/user';
+import { HttpError } from '@/domain/exceptions/http_error';
 import { IUserService } from '@/domain/ports/iuser_service';
 import { Injectable } from '@nestjs/common';
 import mongoose from 'mongoose';
@@ -8,8 +8,10 @@ import { UserModel } from './schemas/user';
 @Injectable()
 export class MongoDBUserService implements IUserService {
   async connect() {
+    if (!process.env.DATABASE_URL)
+      throw new HttpError('Credenciais da base de dados inválidas.');
     mongoose.set('strictQuery', false);
-    return mongoose.connect(DATABASE_URL);
+    return mongoose.connect(process.env.DATABASE_URL);
   }
 
   async create(newUser: UserRequest): Promise<User> {

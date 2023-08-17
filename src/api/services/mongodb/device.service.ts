@@ -1,9 +1,9 @@
-import { DATABASE_URL } from '@/constants';
 import {
   Device,
   DeviceRequest,
   DeviceUpdateRequest,
 } from '@/domain/entities/device';
+import { HttpError } from '@/domain/exceptions/http_error';
 import { IDeviceService } from '@/domain/ports/idevice_service';
 import { Injectable } from '@nestjs/common';
 import mongoose from 'mongoose';
@@ -12,8 +12,10 @@ import { DeviceModel } from './schemas/device';
 @Injectable()
 export class MongoDBDeviceService implements IDeviceService {
   async connect() {
+    if (!process.env.DATABASE_URL)
+      throw new HttpError('Credenciais da base de dados inválidas.');
     mongoose.set('strictQuery', false);
-    return mongoose.connect(DATABASE_URL);
+    return mongoose.connect(process.env.DATABASE_URL);
   }
 
   async create(userId: string, newDevice: DeviceRequest): Promise<Device> {
