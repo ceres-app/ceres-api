@@ -18,7 +18,6 @@ export class MQTTConnector {
   }
 
   private async subscribeTopics() {
-    await client.subscribeAsync('/water/send/command');
     await client.subscribeAsync('/water/get/status');
   }
 

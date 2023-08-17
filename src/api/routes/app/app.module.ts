@@ -4,9 +4,11 @@ import { AppService } from '@/api/services/app.service';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { DeviceModule } from '../devices/device.module';
+import { UserModule } from '../users/user.module';
 
 @Module({
-  imports: [ConfigModule.forRoot()],
+  imports: [ConfigModule.forRoot(), UserModule, DeviceModule],
   controllers: [AppController],
   providers: [
     AppService,
