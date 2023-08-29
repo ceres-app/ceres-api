@@ -7,7 +7,7 @@
 
 const char* ssid = "Jonas-2.4G";
 const char* password = "Amazonas23#jasl";
-const char* mqtt_server = "192.168.80.102";
+const char* mqtt_server = "192.168.80.109";
 
 const char* SERIAL_NUMBER = "1234";
 
@@ -56,11 +56,13 @@ void callback(char* topic, byte* payload, unsigned int length) {
   String commandAsString = String(command);
 
   if(commandAsString == "turnon"){
-    digitalWrite(D4, HIGH);
+    Serial.println("Turning the water pump on ...");
     is_working = true;
+    digitalWrite(D4, HIGH);
   }else{
-    digitalWrite(D4, LOW);
+    Serial.println("Turning the water pump off ...");
     is_working = false;
+    digitalWrite(D4, LOW);
   }
 }
 
@@ -94,8 +96,7 @@ void setup() {
 }
 
 void loop() {
-
-  if (!client.connected()) {
+    if (!client.connected()) {
     reconnect();
   }
   client.loop();
